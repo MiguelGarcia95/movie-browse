@@ -1,0 +1,77 @@
+//out: movieSlide.css, sourcemap: false, compress: true
+
+@darkBlue: #0e1a3c;
+@lightBlue: #142149;
+@pinkRed: #eb5e6c;
+@navbarHeight: 100px;
+@lightFont: #ffffff;
+@transition: 0.5s;
+
+// style for box + expanding
+.movie-box {
+  width: 1000px;
+  height: 600px;
+  overflow: hidden;
+  position: relative;
+  transition: @transition;
+  z-index: 2;
+  //temp
+  margin: auto;
+  &.closed {
+    width: 400px;
+    z-index: 1;
+
+  }
+  .movie-box-image {
+    float: left;
+    width: 400px;
+    height: 100%;
+    position: relative;
+    .watch-button {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background-color: @pinkRed;
+      position: absolute;
+      left: 0; right: 0; top: 0; bottom: 0;
+      margin: auto;
+      text-align: center;
+      z-index: 2;
+      i {
+        color: white;
+        margin-top: 30px;
+      }
+      p {
+        color: white;
+        font-family: 'Lato';
+        font-size: 1.1em;
+      }
+    }
+    img {
+      width: 100%;
+      z-index: 1;
+      // border-radius: 10px;
+      position: absolute;
+      border-radius: 10px 0px 0px 10px;
+      &.closed {
+        border-radius: 10px;
+      }
+    }
+  }
+
+  .movie-details {
+    transition: @transition;
+    background-color: white;
+    width: 600px;
+    height: 100%;
+    float: left;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 25px;
+    border-radius: 0px 10px 10px 0px;
+    &.closed {
+      width: 0px;
+      padding: 0px;
+    }
+  }
+}
