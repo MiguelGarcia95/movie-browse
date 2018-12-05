@@ -1,1 +1,1 @@
-.movie-row{box-sizing:border-box;padding:0 100px;width:100%}.movie-row .movie-row-title{margin-left:1%}.movie-row .movie-row-title h2{font-family:'Lato';color:white;font-weight:300}
+.movie-row{box-sizing:border-box;padding:0 100px;width:100%}.movie-row .movie-row-title{width:100%;float:left;margin-left:1%}.movie-row .movie-row-title h2{font-family:'Lato';color:white;font-weight:300}

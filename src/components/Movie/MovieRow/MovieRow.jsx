@@ -3,18 +3,18 @@ import MovieRowItem from '../MovieRowItem/MovieRowItem';
 import './movieRow.css';
 
 class MovieRow extends React.Component {
-  // use reducers/action to fetch movie list from api using row query data
+
+  loadMovieItems = () => {
+    const {movies} = this.props;
+    return movies.slice(0, 5).map((movie, index) => <MovieRowItem movie={movie} key={index} />)
+  }
 
   render () {
-    const {title} = this.props;
+    const {title, movies} = this.props;
     return(
       <section className="movie-row">
         <section className="movie-row-title"><h2>{title}</h2></section>
-        <MovieRowItem />
-        <MovieRowItem />
-        <MovieRowItem />
-        <MovieRowItem />
-        <MovieRowItem />
+        {this.loadMovieItems()}
       </section>
     )
   }

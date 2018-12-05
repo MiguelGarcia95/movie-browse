@@ -1,0 +1,30 @@
+.section-nav {
+  width: 100%;
+  height: 60px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.section-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 240px;
+  margin: auto;
+}
+.section-nav ul li {
+  float: left;
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Lato';
+  line-height: 60px;
+  width: 120px;
+  text-align: center;
+  font-size: 15px;
+  cursor: pointer;
+}
+.section-nav ul li:hover {
+  border-bottom: 4px solid #eb5e6c;
+}
+.section-nav ul li.active {
+  border-bottom: 4px solid #eb5e6c;
+}
