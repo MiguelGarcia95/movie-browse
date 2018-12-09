@@ -9,8 +9,6 @@ import {fetchMovieGenres, fetchShowGenres} from './actions/genreActions';
 
 import './App.css';
 
-
-
 class App extends Component {
   componentDidMount() {
     this.props.fetchShowGenres();
@@ -37,5 +35,4 @@ const mapStateToProps = state => ({
   movieGenres: state.genres.movieGenres
 })
 
-// export default App;
 export default connect(mapStateToProps, {fetchMovieGenres, fetchShowGenres})(App);

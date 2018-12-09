@@ -4,10 +4,12 @@ import ModalVideo from 'react-modal-video'
 
 import './movieSlide.css';
 
+// https://image.tmdb.org/t/p/original/{movie_backdrop}
+
 class MovieSlide extends React.Component {
   state = {
     slideIsOpened: false,
-    isModalOpen: true
+    isModalOpen: false
   }
 
   toggleModal = () => this.setState({isModalOpen: !this.state.isModalOpen});

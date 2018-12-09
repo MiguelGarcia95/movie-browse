@@ -16,7 +16,6 @@ class Navbar extends React.Component {
               <li><Link to="/logout">Logout</Link></li>
               <li><Link to="/login" className="button">Login/Register</Link></li>
             </ul>
-            <hr/>
           </nav>
       </header>
     )

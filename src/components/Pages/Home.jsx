@@ -6,7 +6,10 @@ import MovieSlide from "../Movie/MovieSlide/MovieSlide";
 import SectionNav from '../Navigation/SectionNav/SectionNav';
 import MovieRow from "../Movie/MovieRow/MovieRow";
 import MovieRows from "../Movie/MovieRows/MovieRows";
+import MovieDisplay from "../Movie/MovieDisplay/MovieDisplay";
+
 import {fetchMovieTrailer} from '../../actions/trailerActions';
+import {fetchMovieBackgroundImages} from '../../actions/imageActions';
 import {
   fetchPopularMovies, fetchPopularShows, fetchTopRatedMovies, fetchTopRatedShows,
   fetchUpcomingMovies, fetchPlayingNowMovies
@@ -16,48 +19,67 @@ import './style/home.css';
 
 class Home extends React.Component {
   state = {
-    apiCategory: 'movies'
+    apiCategory: 'movies',
+    trailersFetched: false
   }
 
   componentDidMount() {
     if (this.state.apiCategory === 'movies') {
       this.fetchMovies();
-      // this.fetchLatestMovie();
     } else if (this.state.apiCategory === 'series') {
       this.fetchShows();
     }
   }
 
-  static getDerivedStateFromProps(nextProps, nextState) {
-    if (nextProps.movieTrailers.length === 0 && nextProps.upcomingMovies.length > 0) {
-      const {id} = nextProps.upcomingMovies[0];
-      nextProps.fetchMovieTrailer(id);
-    }
-    return null;
-  }
+  // static getDerivedStateFromProps(nextProps, nextState) {
+  //   if (nextProps.movieTrailers.length === 0 && nextProps.upcomingMovies.length > 0) {
+  //     console.log(nextProps.upcomingMovies.length)
+  //     console.log(nextProps.movieTrailers.length)
+  //     const {id} = nextProps.upcomingMovies[0];
+  //     nextProps.fetchMovieTrailer(id);
+  //   }
+  //   return null;
+  // }
+
+  // componentDidUpdate(nextProps) {
+  //   if (nextProps.movieTrailers.length === 0 && nextProps.upcomingMovies.length > 0) {
+  //     console.log(nextProps.upcomingMovies.length)
+  //     console.log(nextProps.movieTrailers.length)
+  //     const {id} = nextProps.upcomingMovies[0];
+  //     nextProps.fetchMovieTrailer(id);
+  //   }
+  //   return null;
+  // }
+
+  toggleTrailerFetched = () => this.setState({trailersFetched: true});
 
   toggleApiCategory = (value) => {
     this.setState({apiCategory: value});
+    (value === 'movies') ? this.fetchMovies() : this.fetchShows();
+  };
 
-    if (value === 'movies') {
-      this.fetchMovies();
-    } else if (value === 'series') {
-      this.fetchShows();
+  fetchMovies = () => {
+    if (this.props.popularMovies.length === 0) {
+      this.props.fetchPopularMovies();
+    }
+    if (this.props.topRatedMovies.length === 0) {
+      this.props.fetchTopRatedMovies();
+    }
+    if (this.props.upcomingMovies.length === 0) {
+      this.props.fetchUpcomingMovies();
+    }
+    if (this.props.playingNowMovies.length === 0) {
+      this.props.fetchPlayingNowMovies();
     }
   };
 
-  fetchLatestMovie = () => this.props.fetchLatestMovie();
-
-  fetchMovies = () => {
-    this.props.fetchPopularMovies();
-    this.props.fetchTopRatedMovies();
-    this.props.fetchUpcomingMovies();
-    this.props.fetchPlayingNowMovies();
-  };
-
   fetchShows = () => {
-    this.props.fetchPopularShows();
-    this.props.fetchTopRatedShows();
+    if (this.props.popularShows.length === 0) {
+      this.props.fetchPopularShows();
+    }
+    if (this.props.topRatedShows.length === 0) {
+      this.props.fetchTopRatedShows();
+    }
   };
 
   getContent = (category) => {
@@ -86,27 +108,35 @@ class Home extends React.Component {
 
   render () {
     const {apiCategory} = this.state;
+    if (this.props.movieTrailers.length === 0 && this.props.upcomingMovies.length > 0 && !this.state.trailersFetched) {
+      const {id} = this.props.upcomingMovies[0];
+      this.props.fetchMovieTrailer(id);
+      this.toggleTrailerFetched();
+    }
     const latestMovie = this.getContent('upcoming')[0];
     const latestMovieTrailers = this.props.movieTrailers;
+    // const backgroundImages = this.props.backgroundMovieImages;
     const movieData = {
       popularContent: this.getContent('popular'),
       topRatedContent: this.getContent('top-rated'),
       upcomingMovies: this.getContent('upcoming'),
       playingNowMovies: this.getContent('now-playing'),
     }
+
     return(
       <section id="home">
+        <section className="fc-section movie-section">
+          <MovieDisplay movie={latestMovie} trailers={latestMovieTrailers} />
+        </section>
         <section className="fc-section top-section">
           <h2>Start your next weekend binge today.</h2>
           <section className="movie-slider">
-            <MovieSlide movie={latestMovie} trailers={latestMovieTrailers.results} />
+            <MovieSlide movie={latestMovie} trailers={latestMovieTrailers} />
           </section>
         </section>
         <section className="fc-section home-recommended">
           <SectionNav toggleApiCategory={this.toggleApiCategory} apiCategory={apiCategory} />
-
           <MovieRows type={apiCategory} data={movieData} />
-
         </section>
       </section>
     )
@@ -120,10 +150,11 @@ const mapStateToProps = state => ({
   topRatedShows: state.movies.topRatedShows,
   upcomingMovies: state.movies.upcomingMovies,
   playingNowMovies: state.movies.playingNowMovies,
-  movieTrailers: state.trailers.topMovieTrailers
+  movieTrailers: state.trailers.topMovieTrailers,
+  backgroundMovieImages: state.images.backgroundImages
 });
 
 export default connect(mapStateToProps, {
   fetchPopularMovies, fetchPopularShows, fetchTopRatedMovies, fetchTopRatedShows,
-  fetchUpcomingMovies, fetchPlayingNowMovies, fetchMovieTrailer
+  fetchUpcomingMovies, fetchPlayingNowMovies, fetchMovieTrailer, fetchMovieBackgroundImages
 })(Home);
