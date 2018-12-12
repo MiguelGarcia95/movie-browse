@@ -45,7 +45,7 @@ class MovieDisplay extends React.Component {
                 </span>
               </section>
             </section>
-            <TrailerModal isModalOpen={isModalOpen} toggleModal={this.toggleModal} trailer={trailers} isPlaying={isPlaying}/>
+            <TrailerModal isModalOpen={isModalOpen} toggleModal={this.toggleModal} trailer={trailers[0]} isPlaying={isPlaying}/>
           </section>
         </section>
       )

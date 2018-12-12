@@ -20,16 +20,18 @@ class TrailerModal extends React.Component {
 
   render () {
     const {width, height} = this.state;
-    const {isModalOpen, toggleModal, trailers, isPlaying} = this.props;
+    const {isModalOpen, toggleModal, trailer, isPlaying} = this.props;
 
     if (isPlaying) {
+      console.log(trailer.key)
       return (
         <section className={classnames('movie-modal', {'opened': (isModalOpen)})}>
           <span className="exit">
             <i className="fas fa-times fa-2x" onClick={toggleModal}></i>
           </span>
           <ReactPlayer
-            url='https://www.youtube.com/watch?v=BQLEW1c-69c'
+            url={`https://www.youtube.com/watch?v=${trailer.key}`}
+            controls={true}
             playing={false}
             width={width}
             height={height}
