@@ -1,0 +1,1 @@
+.movie-modal .exit{color:white}.movie-modal{left:0;right:0;top:0;bottom:0;position:fixed;width:0;height:100vh;overflow:hidden;background-color:rgba(0,0,0,0.8);z-index:10}.movie-modal.opened{width:100%}.movie-modal .exit{float:right;padding:25px}.movie-modal .exit i{color:white}.movie-modal div{position:absolute;right:0;left:0;top:0;bottom:0;margin:auto}

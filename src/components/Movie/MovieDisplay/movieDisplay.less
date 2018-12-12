@@ -1,11 +1,21 @@
 //out: movieDisplay.css, sourcemap: false, compress: true
 
+// @darkBlue: #0e1a3c;
+// @lightBlue: #142149;
+@pinkRed: #eb5e6c;
+@lightFont: #ffffff;
+@simpleFont: 'Lato';
+
 .movie-display {
-  width: 75%;
-  height: 75%;
-  padding-top: 5%;
-  margin-left: 12.5%;
+  // percentage
+  // width: 75%; height: 75%;
+  // padding-top: 5%; padding-left: 12.5%;
+  // view
+  width: 75vw; height: 75vh;
+  padding-top: 12.5vh; margin-left: 12.5vw;
   position: relative;
+  box-sizing: border-box;
+
   img {
     position: absolute;
     width: 100%;
@@ -30,7 +40,7 @@
     text-align: right;
     h2 {
       font-family: 'EB Garamond';
-      color: white;
+      color: @lightFont;
       font-size: 3em;
       margin: 20px 0;
       padding-right: 25px;
@@ -38,14 +48,52 @@
     hr {}
     p {
       padding-right: 25px;
-      color: white;
+      color: @lightFont;
     }
   }
   .trailer-box {
+    position: absolute;
+    // view
+    // width: 20vw; height: 20vh;
+    width: 400px; height: 230px;
+    z-index: 4;
+    // background-color: rgba(255,255,255,0.5);
+    bottom: 0px; left: 50px;
     .trailer {
+      width: 100%;
       img {
-
+        box-sizing: border-box;
+        width: 100%;
+        z-index: 1;
+      }
+      .trailer-details {
+        z-index: 2;
+        position: absolute;
+        right: 0;
+        width: 50%; height: 100%;
+        background-color: black;
+        text-align: center;
+        small {
+          position: absolute;
+          color: @lightFont;
+          left: 0; right: 0; top: 25px;
+          font-size: 1em;
+          margin: auto;
+          font-family: @simpleFont;
+        }
+        .trailer-button {
+          position: absolute;
+          left: 0; right: 0; top: 0; bottom: 0;
+          margin: auto;
+          width: 64px;
+          height: 64px;
+          z-index: 2;
+          i {
+            color: @lightFont;
+          }
+        }
       }
     }
+
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+// import classnames from 'classnames';
 import {connect} from 'react-redux';
 
 import MovieSlide from "../Movie/MovieSlide/MovieSlide";
@@ -30,26 +30,6 @@ class Home extends React.Component {
       this.fetchShows();
     }
   }
-
-  // static getDerivedStateFromProps(nextProps, nextState) {
-  //   if (nextProps.movieTrailers.length === 0 && nextProps.upcomingMovies.length > 0) {
-  //     console.log(nextProps.upcomingMovies.length)
-  //     console.log(nextProps.movieTrailers.length)
-  //     const {id} = nextProps.upcomingMovies[0];
-  //     nextProps.fetchMovieTrailer(id);
-  //   }
-  //   return null;
-  // }
-
-  // componentDidUpdate(nextProps) {
-  //   if (nextProps.movieTrailers.length === 0 && nextProps.upcomingMovies.length > 0) {
-  //     console.log(nextProps.upcomingMovies.length)
-  //     console.log(nextProps.movieTrailers.length)
-  //     const {id} = nextProps.upcomingMovies[0];
-  //     nextProps.fetchMovieTrailer(id);
-  //   }
-  //   return null;
-  // }
 
   toggleTrailerFetched = () => this.setState({trailersFetched: true});
 
@@ -109,13 +89,13 @@ class Home extends React.Component {
   render () {
     const {apiCategory} = this.state;
     if (this.props.movieTrailers.length === 0 && this.props.upcomingMovies.length > 0 && !this.state.trailersFetched) {
-      const {id} = this.props.upcomingMovies[0];
+      const {id} = this.props.upcomingMovies[1];
       this.props.fetchMovieTrailer(id);
       this.toggleTrailerFetched();
     }
-    const latestMovie = this.getContent('upcoming')[0];
+    const latestMovie = this.getContent('upcoming')[1];
     const latestMovieTrailers = this.props.movieTrailers;
-    // const backgroundImages = this.props.backgroundMovieImages;
+
     const movieData = {
       popularContent: this.getContent('popular'),
       topRatedContent: this.getContent('top-rated'),
@@ -128,12 +108,12 @@ class Home extends React.Component {
         <section className="fc-section movie-section">
           <MovieDisplay movie={latestMovie} trailers={latestMovieTrailers} />
         </section>
-        <section className="fc-section top-section">
+        {/*<section className="fc-section top-section">
           <h2>Start your next weekend binge today.</h2>
           <section className="movie-slider">
             <MovieSlide movie={latestMovie} trailers={latestMovieTrailers} />
           </section>
-        </section>
+        </section>*/}
         <section className="fc-section home-recommended">
           <SectionNav toggleApiCategory={this.toggleApiCategory} apiCategory={apiCategory} />
           <MovieRows type={apiCategory} data={movieData} />
